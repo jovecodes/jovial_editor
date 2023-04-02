@@ -23,9 +23,9 @@ impl ProjectRunner {
             run_handle: None, 
             build_handle: None,
             run_queued: false,
-            run_shortcut: Shortcut::new(" r", Modes::Normal),
-            build_shortcut: Shortcut::new(" b", Modes::Normal),
-            save_shortcut: Shortcut::new(":w", Modes::Command),
+            run_shortcut: Shortcut::normal(" r"),
+            build_shortcut: Shortcut::normal(" b"),
+            save_shortcut: Shortcut::command(":w"),
         }
     }
 

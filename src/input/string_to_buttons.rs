@@ -1,5 +1,7 @@
 use jovial_engine::prelude::Button;
 
+use super::editor_button::EditorButton;
+
 
 pub fn vec_contains_vec<T: PartialEq>(haystack: &[T], needle: &[T]) -> bool {
     for window in haystack.windows(needle.len()) {
@@ -10,161 +12,60 @@ pub fn vec_contains_vec<T: PartialEq>(haystack: &[T], needle: &[T]) -> bool {
     false
 }
 
-pub fn string_to_buttons(string: &str) -> Vec<Button> {
+pub fn string_to_buttons(string: &str) -> Vec<EditorButton> {
     let mut buttons = Vec::new();
     for character in string.chars() {
-        match character {
-            'a' => buttons.push(Button::A),
-            'A' => {
-                buttons.push(Button::RShift);
-                buttons.push(Button::A);
-            },
-            'b' => buttons.push(Button::B),
-            'B' => {
-                buttons.push(Button::RShift);
-                buttons.push(Button::B);
-            },
-            'c' => buttons.push(Button::C),
-            'C' => {
-                buttons.push(Button::RShift);
-                buttons.push(Button::C);
-            },
-            'd' => buttons.push(Button::D),
-            'D' => {
-                buttons.push(Button::RShift);
-                buttons.push(Button::D);
-            },
-            'e' => buttons.push(Button::E),
-            'E' => {
-                buttons.push(Button::RShift);
-                buttons.push(Button::E);
-            },
-            'f' => buttons.push(Button::F),
-            'F' => {
-                buttons.push(Button::RShift);
-                buttons.push(Button::F);
-            },
-            'g' => buttons.push(Button::G),
-            'G' => {
-                buttons.push(Button::RShift);
-                buttons.push(Button::G);
-            },
-            'h' => buttons.push(Button::H),
-            'H' => {
-                buttons.push(Button::RShift);
-                buttons.push(Button::H);
-            },
-            'i' => buttons.push(Button::I),
-            'I' => {
-                buttons.push(Button::RShift);
-                buttons.push(Button::I);
-            },
-            'j' => buttons.push(Button::J),
-            'J' => {
-                buttons.push(Button::RShift);
-                buttons.push(Button::J);
-            },
-            'k' => buttons.push(Button::K),
-            'K' => {
-                buttons.push(Button::RShift);
-                buttons.push(Button::K);
-            },
-            'l' => buttons.push(Button::L),
-            'L' => {
-                buttons.push(Button::RShift);
-                buttons.push(Button::L);
-            },
-            'm' => buttons.push(Button::M),
-            'M' => {
-                buttons.push(Button::RShift);
-                buttons.push(Button::M);
-            },
-            'n' => buttons.push(Button::N),
-            'N' => {
-                buttons.push(Button::RShift);
-                buttons.push(Button::N);
-            },
-            'o' => buttons.push(Button::O),
-            'O' => {
-                buttons.push(Button::RShift);
-                buttons.push(Button::O);
-            },
-            'p' => buttons.push(Button::P),
-            'P' => {
-                buttons.push(Button::RShift);
-                buttons.push(Button::P);
-            },
-            'q' => buttons.push(Button::Q),
-            'Q' => {
-                buttons.push(Button::RShift);
-                buttons.push(Button::Q);
-            },
-            'r' => buttons.push(Button::R),
-            'R' => {
-                buttons.push(Button::RShift);
-                buttons.push(Button::R);
-            },
-            's' => buttons.push(Button::S),
-            'S' => {
-                buttons.push(Button::RShift);
-                buttons.push(Button::S);
-            },
-            't' => buttons.push(Button::T),
-            'T' => {
-                buttons.push(Button::RShift);
-                buttons.push(Button::T);
-            },
-            'u' => buttons.push(Button::U),
-            'U' => {
-                buttons.push(Button::RShift);
-                buttons.push(Button::U);
-            },
-            'v' => buttons.push(Button::V),
-            'V' => {
-                buttons.push(Button::RShift);
-                buttons.push(Button::V);
-            },
-            'w' => buttons.push(Button::W),
-            'W' => {
-                buttons.push(Button::RShift);
-                buttons.push(Button::W);
-            },
-            'x' => buttons.push(Button::X),
-            'X' => {
-                buttons.push(Button::RShift);
-                buttons.push(Button::X);
-            },
-            'y' => buttons.push(Button::Y),
-            'Y' => {
-                buttons.push(Button::RShift);
-                buttons.push(Button::Y);
-            },
-            'z' => buttons.push(Button::Z),
-            'Z' => {
-                buttons.push(Button::RShift);
-                buttons.push(Button::Z);
-            },
-            ' ' => buttons.push(Button::Space),
+        let shift = character.is_uppercase();
+        let mut new_char = character;
+        if character.is_alphabetic() {
+            new_char = character.to_ascii_lowercase();
+        }
 
-            ';' => buttons.push(Button::Semicolon),
-            ':' => {
-                buttons.push(Button::RShift);
-                buttons.push(Button::Semicolon);
-            },
+        match new_char {
+            'a' => buttons.push(EditorButton::new(Button::A, shift)),
+            'b' => buttons.push(EditorButton::new(Button::B, shift)),
+            'c' => buttons.push(EditorButton::new(Button::C, shift)),
+            'd' => buttons.push(EditorButton::new(Button::D, shift)),
+            'e' => buttons.push(EditorButton::new(Button::E, shift)),
+            'f' => buttons.push(EditorButton::new(Button::F, shift)),
+            'g' => buttons.push(EditorButton::new(Button::G, shift)),
+            'h' => buttons.push(EditorButton::new(Button::H, shift)),
+            'i' => buttons.push(EditorButton::new(Button::I, shift)),
+            'j' => buttons.push(EditorButton::new(Button::J, shift)),
+            'k' => buttons.push(EditorButton::new(Button::K, shift)),
+            'l' => buttons.push(EditorButton::new(Button::L, shift)),
+            'm' => buttons.push(EditorButton::new(Button::M, shift)),
+            'n' => buttons.push(EditorButton::new(Button::N, shift)),
+            'o' => buttons.push(EditorButton::new(Button::O, shift)),
+            'p' => buttons.push(EditorButton::new(Button::P, shift)),
+            'q' => buttons.push(EditorButton::new(Button::Q, shift)),
+            'r' => buttons.push(EditorButton::new(Button::R, shift)),
+            's' => buttons.push(EditorButton::new(Button::S, shift)),
+            't' => buttons.push(EditorButton::new(Button::T, shift)),
+            'u' => buttons.push(EditorButton::new(Button::U, shift)),
+            'v' => buttons.push(EditorButton::new(Button::V, shift)),
+            'w' => buttons.push(EditorButton::new(Button::W, shift)),
+            'x' => buttons.push(EditorButton::new(Button::X, shift)),
+            'y' => buttons.push(EditorButton::new(Button::Y, shift)),
+            'z' => buttons.push(EditorButton::new(Button::Z, shift)),
 
-            '1' => buttons.push(Button::Key1),
-            '2' => buttons.push(Button::Key2),
-            '3' => buttons.push(Button::Key3),
-            '4' => buttons.push(Button::Key4),
-            '5' => buttons.push(Button::Key5),
-            '6' => buttons.push(Button::Key6),
-            '7' => buttons.push(Button::Key7),
-            '8' => buttons.push(Button::Key8),
-            '9' => buttons.push(Button::Key9),
-            '0' => buttons.push(Button::Key0),
+            ' ' => buttons.push(EditorButton::new(Button::Space, shift)),
+            ';' => buttons.push(EditorButton::new(Button::Semicolon, shift)),
+            ':' => buttons.push(EditorButton::new(Button::Semicolon, true)),
 
-            '~' => buttons.push(Button::Return),
-            '!' => buttons.push(Button::RControl),
+            '1' => buttons.push(EditorButton::new(Button::Key1, shift)),
+            '2' => buttons.push(EditorButton::new(Button::Key2, shift)),
+            '3' => buttons.push(EditorButton::new(Button::Key3, shift)),
+            '4' => buttons.push(EditorButton::new(Button::Key4, shift)),
+            '5' => buttons.push(EditorButton::new(Button::Key5, shift)),
+            '6' => buttons.push(EditorButton::new(Button::Key6, shift)),
+            '7' => buttons.push(EditorButton::new(Button::Key7, shift)),
+            '8' => buttons.push(EditorButton::new(Button::Key8, shift)),
+            '9' => buttons.push(EditorButton::new(Button::Key9, shift)),
+            '0' => buttons.push(EditorButton::new(Button::Key0, shift)),
+
+            '~' => buttons.push(EditorButton::new(Button::Return, shift)),
+            '!' => buttons.push(EditorButton::new(Button::RControl, shift)),
 
             _ => unreachable!("Unknown character {} ", character)
         }

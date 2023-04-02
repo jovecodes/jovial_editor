@@ -2,7 +2,7 @@ use std::process::Command;
 
 use jovial_engine::prelude::*;
 
-use crate::{project_runner::ProjectRunner, add_child_to_root, project_writer::ProjectWriter, file_creation::file_ui::FileUi, input::InputRecorder};
+use crate::{project_runner::ProjectRunner, add_child_to_root, project_writer::ProjectWriter, file_creation::file_ui::FileUi, input::{InputRecorder, input_ui::InputUi}};
 
 pub const OPEN_SETTINGS: &str = "OpenSettings";
 
@@ -61,6 +61,7 @@ impl ProjectCreator {
             add_child_to_root(game_state, ProjectWriter::new());
             add_child_to_root(game_state, FileUi);
             add_child_to_root(game_state, InputRecorder);
+            add_child_to_root(game_state, InputUi);
         }
     }
 }

@@ -1,19 +1,22 @@
 use std::time::{Instant, Duration};
 use jovial_engine::prelude::*;
-
-use self::string_to_buttons::{vec_contains_vec, string_to_buttons};
+use self::{string_to_buttons::{vec_contains_vec, string_to_buttons}, editor_button::EditorButton};
 
 pub mod string_to_buttons;
+pub mod input_ui;
+pub mod button_to_string;
+pub mod editor_button;
 
 pub const INPUT: &str = "Input";
 pub const USE_INPUT: &str = "Use Input";
 
 #[derive(Debug)]
 pub struct Input {
-    pub buttons_pressed: Vec<Button>,
+    pub buttons_pressed: Vec<EditorButton>,
     pub last_updated: Instant,
     pub shift: bool,
     reset_duration: Duration,
+    needs_to_reset: bool,
     mode: Modes,
 }
 
@@ -21,6 +24,15 @@ impl Plugin for Input {
     fn update(&mut self) {
         if Instant::now().duration_since(self.last_updated) > self.reset_duration && self.mode != Modes::Command {
             self.buttons_pressed.clear();
+        }
+
+        if self.needs_to_reset {
+            self.buttons_pressed.clear();
+            self.needs_to_reset = false;
+        }
+
+        if self.mode == Modes::Command && self.buttons_pressed.contains(&EditorButton::new(Button::Return, false)) {
+            self.needs_to_reset = true;
         }
     }
 }
@@ -53,11 +65,10 @@ impl Input {
 
             if i == Button::LShift || i == Button::RShift {
                 self.shift = true;
-                self.buttons_pressed.push(Button::RShift);
             } else if i == Button::LControl || i == Button::RControl {
-                self.buttons_pressed.push(Button::RControl);
+                self.buttons_pressed.push(EditorButton::new(Button::RControl, false));
             } else {
-                self.buttons_pressed.push(i);
+                self.buttons_pressed.push(EditorButton::new(i, self.shift));
             }
         }
         self.last_updated = Instant::now();
@@ -81,20 +92,19 @@ impl Input {
             self.buttons_pressed.clear();
             return true;
         }
-        if button == &Button::I && self.mode != Modes::Insert {
+        if button == &Button::I && self.mode == Modes::Normal {
             self.mode = Modes::Insert;
             self.buttons_pressed.clear();
             return true;
         }
-        if button == &Button::V && self.mode != Modes::Visual {
+        if button == &Button::V && self.mode == Modes::Normal {
             self.mode = Modes::Visual;
             self.buttons_pressed.clear();
             return true;
         }
-        if button == &Button::Semicolon && self.shift && self.mode != Modes::Command {
+        if button == &Button::Semicolon && self.shift && self.mode != Modes::Command && self.mode != Modes::Insert {
             self.mode = Modes::Command;
             self.buttons_pressed.clear();
-            self.buttons_pressed.push(Button::RShift);
             return true;
         }
         return false;
@@ -116,7 +126,8 @@ impl Default for Input {
             last_updated: Instant::now(),
             reset_duration: Duration::new(0, 500_000_000),
             mode: Modes::Normal,
-            shift: false
+            shift: false,
+            needs_to_reset: false,
         }
     }
 }
@@ -144,8 +155,9 @@ impl Entity for InputRecorder {
 
 pub struct Shortcut {
     mode: Modes,
-    buttons: Vec<Button>,
+    buttons: Vec<EditorButton>,
 }
+
 impl Shortcut {
     pub fn new(string: &str, mode: Modes) -> Self {
         let mut string = String::from(string);
@@ -155,6 +167,22 @@ impl Shortcut {
         let buttons = string_to_buttons(&string);
 
         Self { mode, buttons } 
+    }
+
+    pub fn command(string: &str) -> Self {
+        Self::new(string, Modes::Command)
+    }
+
+    pub fn normal(string: &str) -> Self {
+        Self::new(string, Modes::Normal)
+    }
+
+    pub fn insert(string: &str) -> Self {
+        Self::new(string, Modes::Insert)
+    }
+
+    pub fn visual(string: &str) -> Self {
+        Self::new(string, Modes::Visual)
     }
 }
 

@@ -17,11 +17,13 @@ pub mod input;
 
 pub const ADD_CHILD: &str = "Add child to root";
 
+pub const RESOLUTION: Vector2i = Vector2i { x: 1280, y: 720 };
+
 fn main() {
     jovial_compile().unwrap();
     jovial!(Root, "Root")
         .set_title("Jovial Editor")
-        .set_resolution(1280, 720)
+        .set_resolution(RESOLUTION.x, RESOLUTION.y)
         .run_settings(plugins)
         .run()
 }
