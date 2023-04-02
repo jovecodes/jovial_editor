@@ -2,7 +2,7 @@ use std::process::Command;
 
 use jovial_engine::prelude::*;
 
-use crate::{ADD_CHILD, project_runner::ProjectRunner};
+use crate::{project_runner::ProjectRunner, add_child_to_root, project_writer::ProjectWriter, file_creation::file_ui::FileUi};
 
 pub const OPEN_SETTINGS: &str = "OpenSettings";
 
@@ -11,10 +11,11 @@ pub struct ProjectCreator {
     project_destination: String,
 }
 
-#[derive(Debug, Default)]
+#[derive(Debug, Default, Clone)]
 pub struct OpenSettings {
     pub path: String, 
     pub first_edit: bool,
+    pub has_run: bool,
 }
 
 impl Plugin for OpenSettings {
@@ -56,10 +57,9 @@ impl ProjectCreator {
         if ui.button("Create Project").clicked() {
             self.create(game_state.plugins.get_mut(OPEN_SETTINGS).unwrap());
             entity_commands.die();
-            game_state.events.add::<Box<dyn Entity>>(
-                ADD_CHILD,
-                Box::new(ProjectRunner),
-            )
+            add_child_to_root(game_state, ProjectRunner::new());
+            add_child_to_root(game_state, ProjectWriter::new());
+            add_child_to_root(game_state, FileUi);
         }
     }
 }

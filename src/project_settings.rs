@@ -12,8 +12,20 @@ pub struct ProjectSettings {
 }
 
 impl ProjectSettings {
+    pub fn new() -> Self {
+        Self { 
+            title: String::from("Jovial Game"), 
+            size: Vector2i::new(720, 1280), 
+            resolution: Vector2i::new(360, 640), 
+            debug: true, 
+            root: (String::from("Root"), String::from("Root")), 
+            compile: true,
+        }
+    }
+
     pub fn build(&self) -> String {
-        let mut main = "fn main() {\n".to_owned();
+        let mut main = "use jovial_engine::prelude::*;\n\n".to_owned();
+        main += "fn main() {\n";
         main += self.compiled();
         main += &self.jovial();
         main += &self.title();
@@ -28,33 +40,33 @@ impl ProjectSettings {
 
     fn compiled(&self) -> &str {
         if self.compile {
-            "\tjovial_compile().unwrap();\n"
+            "\tjovial_compile().unwrap();"
         } else {
             ""
         }
     }
 
     fn jovial(&self) -> String {
-        format!("\tjovial!({}, {})", self.root.0, self.root.1)
+        format!("\n\tjovial!({}, {:?})", self.root.0, self.root.1)
     }
 
     fn title(&self) -> String {
-        format!("\t\t.set_title({})", self.title)
+        format!("\n\t\t.set_title({:?})", self.title)
     }
 
     fn size(&self) -> String {
-        format!("\t\t.set_size({})", self.size)
+        format!("\n\t\t.set_size({}, {})", self.size.x, self.size.y)
     }
 
     fn resolution(&self) -> String {
-        format!("\t\t.set_resolution({})", self.resolution)
+        format!("\n\t\t.set_resolution({}, {})", self.resolution.x, self.resolution.y)
     }
 
     fn debug(&self) -> &str {
         if self.debug {
-            "\t\t.set_debug_mode(true)"
+            "\n\t\t.set_debug_mode(true)"
         } else {
-            "\t\t.set_debug_mode(false)"
+            "\n\t\t.set_debug_mode(false)"
         }
     }
 }
