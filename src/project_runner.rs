@@ -1,6 +1,6 @@
 use jovial_engine::prelude::*;
 use jovial_engine::prelude::egui::Ui;
-use crate::input::{string_to_buttons, INPUT, Input, Modes};
+use crate::input::{INPUT, Input, Modes, Shortcut};
 use crate::project_creator::{OpenSettings, OPEN_SETTINGS};
 use std::process::Command;
 use std::thread::{self, JoinHandle};
@@ -12,8 +12,9 @@ pub struct ProjectRunner {
     run_handle: Option<JoinHandle<()>>,
     build_handle: Option<JoinHandle<()>>,
     run_queued: bool,
-    run_shortcut: Vec<Button>,
-    build_shortcut: Vec<Button>,
+    run_shortcut: Shortcut,
+    build_shortcut: Shortcut,
+    save_shortcut: Shortcut
 }
 
 impl ProjectRunner {
@@ -22,8 +23,9 @@ impl ProjectRunner {
             run_handle: None, 
             build_handle: None,
             run_queued: false,
-            run_shortcut: string_to_buttons(" r"),
-            build_shortcut: string_to_buttons(" b"),
+            run_shortcut: Shortcut::new(" r", Modes::Normal),
+            build_shortcut: Shortcut::new(" b", Modes::Normal),
+            save_shortcut: Shortcut::new(":w", Modes::Command),
         }
     }
 
@@ -69,7 +71,7 @@ impl ProjectRunner {
             return false;
         }
         let input = game_state.plugins.get_mut::<Input>(INPUT).unwrap();
-        if input.is_pressed(&self.build_shortcut, Modes::Normal) == false {
+        if input.is_pressed(&self.build_shortcut) == false {
             return false;
         }
 
@@ -109,7 +111,7 @@ impl ProjectRunner {
 
     fn check_build_shortcut(&mut self, game_state: &mut GameState) {
         let input = game_state.plugins.get_mut::<Input>(INPUT).unwrap();
-        if input.is_pressed(&self.build_shortcut, Modes::Normal) == false {
+        if input.is_pressed(&self.build_shortcut) == false {
             return;
         }
         self.build(game_state);
@@ -117,7 +119,7 @@ impl ProjectRunner {
 
     fn check_run_shortcut(&mut self, game_state: &mut GameState) {
         let input = game_state.plugins.get_mut::<Input>(INPUT).unwrap();
-        if input.is_pressed(&self.run_shortcut, Modes::Normal) == false {
+        if input.is_pressed(&self.run_shortcut) == false {
             return;
         }
         if self.build(game_state) {
@@ -149,6 +151,19 @@ impl ProjectRunner {
             }
         }
     }
+
+    fn check_save(&mut self, ui: &mut Ui, game_state: &mut GameState) {
+        let is_save_shortcut_pressed = {
+            game_state.plugins
+                .get_mut::<Input>(INPUT)
+                .unwrap()
+                .is_pressed(&self.save_shortcut)
+        };
+        if ui.button("Save").clicked() || is_save_shortcut_pressed {
+            println!("save");
+            game_state.events.add(SAVE, true)
+        }
+    }
 }
 
 impl Entity for ProjectRunner {
@@ -168,11 +183,11 @@ impl Entity for ProjectRunner {
                     if self.build(game_state) {
                         self.run_queued = true;
                     }
-                } else if button_ui.button("Build").clicked() {
+                } 
+                if button_ui.button("Build").clicked() {
                     self.build(game_state);
-                } else if button_ui.button("Save").clicked() {
-                    game_state.events.add(SAVE, true)
-                }
+                } 
+                self.check_save(button_ui, game_state);
                 self.check_shortcuts(game_state);
             });
             self.check_build(ui, game_state);
