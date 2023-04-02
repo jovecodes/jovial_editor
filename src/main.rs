@@ -1,5 +1,7 @@
 use file_creation::file_ui::FILES;
 use file_creation::file_ui::Files;
+use input::INPUT;
+use input::Input;
 use jovial_engine::prelude::*;
 use project_creator::OPEN_SETTINGS;
 use project_creator::ProjectCreator;
@@ -20,9 +22,15 @@ fn main() {
     jovial!(Root, "Root")
         .set_title("Jovial Editor")
         .set_resolution(1280, 720)
+        .run_settings(plugins)
+        .run()
+}
+
+fn plugins(mut app: App) -> App {
+    app
         .add_plugin(OpenSettings::default(), OPEN_SETTINGS)
         .add_plugin(Files::default(), FILES)
-        .run()
+        .add_plugin(Input::default(), INPUT)
 }
 
 struct Root;
