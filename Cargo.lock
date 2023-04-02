@@ -1008,7 +1008,7 @@ dependencies = [
 [[package]]
 name = "jovial_app"
 version = "0.1.0"
-source = "git+https://github.com/jovecodes/JovialEngine#dac2d34d682e7a714f9af407e236e4a5958b1329"
+source = "git+https://github.com/jovecodes/JovialEngine#05e610f4279eb61903332d8bf13d12d9697b7e88"
 dependencies = [
  "jovial_drawer",
  "jovial_entity",
@@ -1027,7 +1027,7 @@ dependencies = [
 [[package]]
 name = "jovial_components"
 version = "0.1.0"
-source = "git+https://github.com/jovecodes/JovialEngine#dac2d34d682e7a714f9af407e236e4a5958b1329"
+source = "git+https://github.com/jovecodes/JovialEngine#05e610f4279eb61903332d8bf13d12d9697b7e88"
 dependencies = [
  "jovial_app",
  "jovial_drawer",
@@ -1041,7 +1041,7 @@ dependencies = [
 [[package]]
 name = "jovial_derive"
 version = "0.1.0"
-source = "git+https://github.com/jovecodes/JovialEngine#dac2d34d682e7a714f9af407e236e4a5958b1329"
+source = "git+https://github.com/jovecodes/JovialEngine#05e610f4279eb61903332d8bf13d12d9697b7e88"
 dependencies = [
  "quote",
  "syn 2.0.12",
@@ -1050,7 +1050,7 @@ dependencies = [
 [[package]]
 name = "jovial_drawer"
 version = "0.1.0"
-source = "git+https://github.com/jovecodes/JovialEngine#dac2d34d682e7a714f9af407e236e4a5958b1329"
+source = "git+https://github.com/jovecodes/JovialEngine#05e610f4279eb61903332d8bf13d12d9697b7e88"
 dependencies = [
  "bytemuck",
  "cgmath",
@@ -1074,7 +1074,7 @@ dependencies = [
 [[package]]
 name = "jovial_engine"
 version = "0.1.0"
-source = "git+https://github.com/jovecodes/JovialEngine#dac2d34d682e7a714f9af407e236e4a5958b1329"
+source = "git+https://github.com/jovecodes/JovialEngine#05e610f4279eb61903332d8bf13d12d9697b7e88"
 dependencies = [
  "jovial_app",
  "jovial_components",
@@ -1100,7 +1100,7 @@ dependencies = [
 [[package]]
 name = "jovial_entity"
 version = "0.1.0"
-source = "git+https://github.com/jovecodes/JovialEngine#dac2d34d682e7a714f9af407e236e4a5958b1329"
+source = "git+https://github.com/jovecodes/JovialEngine#05e610f4279eb61903332d8bf13d12d9697b7e88"
 dependencies = [
  "downcast-rs",
  "jovial_drawer",
@@ -1111,12 +1111,12 @@ dependencies = [
 [[package]]
 name = "jovial_event"
 version = "0.1.0"
-source = "git+https://github.com/jovecodes/JovialEngine#dac2d34d682e7a714f9af407e236e4a5958b1329"
+source = "git+https://github.com/jovecodes/JovialEngine#05e610f4279eb61903332d8bf13d12d9697b7e88"
 
 [[package]]
 name = "jovial_files"
 version = "0.1.0"
-source = "git+https://github.com/jovecodes/JovialEngine#dac2d34d682e7a714f9af407e236e4a5958b1329"
+source = "git+https://github.com/jovecodes/JovialEngine#05e610f4279eb61903332d8bf13d12d9697b7e88"
 dependencies = [
  "anyhow",
  "asefile",
@@ -1132,7 +1132,7 @@ dependencies = [
 [[package]]
 name = "jovial_game_state"
 version = "0.1.0"
-source = "git+https://github.com/jovecodes/JovialEngine#dac2d34d682e7a714f9af407e236e4a5958b1329"
+source = "git+https://github.com/jovecodes/JovialEngine#05e610f4279eb61903332d8bf13d12d9697b7e88"
 dependencies = [
  "jovial_drawer",
  "jovial_event",
@@ -1149,7 +1149,7 @@ dependencies = [
 [[package]]
 name = "jovial_input"
 version = "0.1.0"
-source = "git+https://github.com/jovecodes/JovialEngine#dac2d34d682e7a714f9af407e236e4a5958b1329"
+source = "git+https://github.com/jovecodes/JovialEngine#05e610f4279eb61903332d8bf13d12d9697b7e88"
 dependencies = [
  "jovial_math",
  "winit",
@@ -1158,7 +1158,7 @@ dependencies = [
 [[package]]
 name = "jovial_math"
 version = "0.1.0"
-source = "git+https://github.com/jovecodes/JovialEngine#dac2d34d682e7a714f9af407e236e4a5958b1329"
+source = "git+https://github.com/jovecodes/JovialEngine#05e610f4279eb61903332d8bf13d12d9697b7e88"
 dependencies = [
  "serde",
 ]
@@ -1166,7 +1166,7 @@ dependencies = [
 [[package]]
 name = "jovial_physics"
 version = "0.1.0"
-source = "git+https://github.com/jovecodes/JovialEngine#dac2d34d682e7a714f9af407e236e4a5958b1329"
+source = "git+https://github.com/jovecodes/JovialEngine#05e610f4279eb61903332d8bf13d12d9697b7e88"
 dependencies = [
  "jovial_math",
  "rapier2d",
@@ -1175,7 +1175,7 @@ dependencies = [
 [[package]]
 name = "jovial_plugins"
 version = "0.1.0"
-source = "git+https://github.com/jovecodes/JovialEngine#dac2d34d682e7a714f9af407e236e4a5958b1329"
+source = "git+https://github.com/jovecodes/JovialEngine#05e610f4279eb61903332d8bf13d12d9697b7e88"
 dependencies = [
  "downcast-rs",
 ]
@@ -1183,7 +1183,7 @@ dependencies = [
 [[package]]
 name = "jovial_renderer"
 version = "0.1.0"
-source = "git+https://github.com/jovecodes/JovialEngine#dac2d34d682e7a714f9af407e236e4a5958b1329"
+source = "git+https://github.com/jovecodes/JovialEngine#05e610f4279eb61903332d8bf13d12d9697b7e88"
 dependencies = [
  "bytemuck",
  "cfg-if",
@@ -1207,7 +1207,7 @@ dependencies = [
 [[package]]
 name = "jovial_saver"
 version = "0.1.0"
-source = "git+https://github.com/jovecodes/JovialEngine#dac2d34d682e7a714f9af407e236e4a5958b1329"
+source = "git+https://github.com/jovecodes/JovialEngine#05e610f4279eb61903332d8bf13d12d9697b7e88"
 dependencies = [
  "dirs",
  "serde",
@@ -1217,7 +1217,7 @@ dependencies = [
 [[package]]
 name = "jovial_scene"
 version = "0.1.0"
-source = "git+https://github.com/jovecodes/JovialEngine#dac2d34d682e7a714f9af407e236e4a5958b1329"
+source = "git+https://github.com/jovecodes/JovialEngine#05e610f4279eb61903332d8bf13d12d9697b7e88"
 dependencies = [
  "jovial_entity",
 ]
@@ -1225,7 +1225,7 @@ dependencies = [
 [[package]]
 name = "jovial_tilemap"
 version = "0.1.0"
-source = "git+https://github.com/jovecodes/JovialEngine#dac2d34d682e7a714f9af407e236e4a5958b1329"
+source = "git+https://github.com/jovecodes/JovialEngine#05e610f4279eb61903332d8bf13d12d9697b7e88"
 dependencies = [
  "jovial_app",
  "jovial_drawer",
@@ -1240,12 +1240,12 @@ dependencies = [
 [[package]]
 name = "jovial_time"
 version = "0.1.0"
-source = "git+https://github.com/jovecodes/JovialEngine#dac2d34d682e7a714f9af407e236e4a5958b1329"
+source = "git+https://github.com/jovecodes/JovialEngine#05e610f4279eb61903332d8bf13d12d9697b7e88"
 
 [[package]]
 name = "jovial_ui"
 version = "0.1.0"
-source = "git+https://github.com/jovecodes/JovialEngine#dac2d34d682e7a714f9af407e236e4a5958b1329"
+source = "git+https://github.com/jovecodes/JovialEngine#05e610f4279eb61903332d8bf13d12d9697b7e88"
 dependencies = [
  "egui 0.21.0",
  "egui-wgpu",
